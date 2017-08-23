@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	{% block head_title %}Create Page
+	{% endblock head_title %}
+	
+	<form method="POST" action="{% url 'main:create' %}" enctype="multipart/form-data" id="post-form"  onchange="update_price()">
+	<div class="col-md-10 ">
+		{% csrf_token %}
+		<div class="fieldWrapper" id="the_post">
+        {{ form|crispy }}
+    </div>
+		<input type="submit" value="Create post">
+	</div>
+			<div class="col-md-2" id="FixedDiv">
+			
+			<h3>Price <span id="total">00.00</span>Kwd</h3>
+			
+			</div>
+	</form>
+	
+<!--
+<script>
+    function ajax_widget()
+    {
+
+    	var total = 0 
+    	var syrup =[];
+    	var beans = [];
+    	var powder = [];
+    	var roasts = [];
+        // console.log("test!");
+        $.ajax({
+            type:'GET',
+            url:'{% url "main:create_widget"  %}',
+            error:function(){
+                console.log("noob")
+
+            },
+            success:function(x){
+            	for (i=0 ; i < Object.keys(x.syrups).length ; i++ ){
+            		var value_syrup = Object.keys(x.syrups).map(function(key){
+            			return x.syrups[key];
+            		});
+					syrup[Object.keys(x.syrups)[i]] = value_syrup[i]
+                    	
+                    	
+                }
+                for (i=0 ; i < Object.keys(x.syrups).length ; i++ ){
+                	var value_powder = Object.keys(x.powders).map(function(key){
+                		return x.powders[key];
+                	});
+                	powder[Object.keys(x.powders)[i]] = value_powder[i]
+                    	
+                }
+                for (i=0 ; i < Object.keys(x.roast).length ; i++ ){
+                	var value_roast = Object.keys(x.roast).map(function(key){
+                		return x.roast[key];
+                	});
+                	roasts[Object.keys(x.roast)[i]] = value_roast[i]	
+                    }
+                for (i=0 ; i < Object.keys(x.bean).length ; i++ ){
+                	var value_bean = Object.keys(x.bean).map(function(key){
+                		return x.bean[key];
+                	});
+                	beans[Object.keys(x.bean)[i]] = value_bean[i]
+               	}
+
+    
+                var e = document.getElementById("id_syrups");
+                var strUser = e.options[e.selectedIndex].text;
+                for (i=0 ; i < Object.keys(syrup).length ; i++ ){
+                	
+                	if (Object.keys(syrup)[i]===strUser){
+                		console.log(value_syrup[i]);
+                		total += Number(value_syrup[i]);
+
+                	}
+
+                }
+                var e = document.getElementById("id_bean");
+                var strUser2 = e.options[e.selectedIndex].text;
+                for (i=0 ; i < Object.keys(beans).length ; i++ ){
+                	
+                	if (Object.keys(beans)[i]===strUser2){
+                		console.log(value_bean[i]);
+                		total += Number(value_bean[i]);
+                		
+                	}
+
+                }
+                var e = document.getElementById("id_powders");
+                var strUser3 = e.options[e.selectedIndex].text;
+                for (i=0 ; i < Object.keys(powder).length ; i++ ){
+                	
+                	if (Object.keys(powder)[i]===strUser3){
+                		console.log(value_powder[i]);
+                		total += Number(value_powder[i]);
+                		
+                	}
+
+                }
+				var e = document.getElementById("id_roast");
+                var strUser4 = e.options[e.selectedIndex].text;
+                for (i=0 ; i < Object.keys(roasts).length ; i++ ){
+                	
+                	if (Object.keys(roasts)[i]===strUser4){
+                		console.log(value_roast[i]);
+                		total += Number(value_roast[i]);
+                		
+                	}
+
+                }
+                console.log(total)
+                var espresso_shots = document.getElementById(" esp");
+				var espresso_shots_ammount = espresso_shots.value;
+				var fom_shots = document.getElementById(" fom");
+				var fom_amount = fom_shots.value;
+				total += Number(espresso_shots_ammount);  
+				total +=Number(fom_amount);
+				console.log(total);
+                $("#output1").html(total);
+                Materialize.toast(total, 4000 ,'rounded')   
+                   
+
+
+
+        }});
+     
+    }
+
+</script>
+ -->
+<script>
+function update_price(){
+	var bean = document.getElementById("id_bean");
+	var bean_id = bean[bean.selectedIndex].value;
+	var roast = document.getElementById("id_roast");
+	var roast_id = roast[roast.selectedIndex].value;
+	console.log(roast_id);
+	var espresso_shots = document.getElementById("id_espresso");
+	var espresso_shots_ammount = espresso_shots.value;
+	var milk = document.getElementById('id_steamed_milk');
+	var milk_value = milk.checked;
+	var powders = document.getElementById("id_powders");
+	var selected_powders = [];
+	for (var i = 0; i < powders.length; i++)
+	{
+        if (powders.options[i].selected)
+        	{
+        		selected_powders.push(powders.options[i].value);
+        	}
+    }
+    var syrups = document.getElementById("id_syrups");
+    var selected_syrups = [];
+	for (var i = 0; i < syrups.length; i++)
+	{
+        if (syrups.options[i].selected)
+        	{
+        		selected_syrups.push(syrups.options[i].value);
+        	}
+    }
+    $.ajax({
+       type: 'GET',
+       url: '{% url "main:create_widget" %}',
+       data: {
+            bean: bean_id,
+            roast: roast_id,
+            espresso_shots: espresso_shots_ammount,
+            milk: milk_value,
+            powders: JSON.stringify(selected_powders),
+            syrups: JSON.stringify(selected_syrups),
+           },
+       error: function() {
+            console.log('There was an error connecting');
+           },
+       success: function(data) {
+            console.log(data);
+            // document.getElementById('total').innerHTML=data;
+            $('#total').text(data);
+            console.log("it worked")
+
+            Materialize.toast("Price " +data + " KWD", 4000 ,'rounded') 
+           }
+    });
+}
+</script>
+
+{% endblock content%}
+
+
+
+

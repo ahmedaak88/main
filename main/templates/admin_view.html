@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block head_title %}Home{% endblock head_title %}   
+{% block links_title %}
+
+
+
+        {% endblock links_title %}
+{% block content %}
+
+
+	
+		
+	
+		
+{% for x in users %}
+	<div class="jumbotron ">
+
+	<cite>Author: </cite><p>{{x.username}}</p>
+	{% for s in address %}
+	{% if s.author.username == x.username %}
+		<cite>His City: </cite><p>{{s.city}}</p>
+	{% endif %}
+	{% endfor %}
+	{% for y in coffe %}
+	
+
+		{% if y.author.username == x.username  %}
+		
+			
+		
+		<table>
+			<tr>
+				<td>{{y.name}}</td>
+				
+
+
+			</tr>
+		</table>
+	<a href="{% url 'main:details' post_id=y.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>Details</a>
+	{% endif %}
+		
+	
+	{% endfor %}
+	</div>
+	
+{% endfor %}
+	
+
+	
+
+{% endblock content%}

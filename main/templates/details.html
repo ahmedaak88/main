@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block head_title %}detail{% endblock head_title %}   
+{% block content %}
+
+ Author: {{details.author.get_full_name}}
+        
+        <div class="jumbotron">
+            <div class ="#f48fb1 pink lighten-3">
+                <cite>Name of coffe:</cite><h2>{{details.name}}</h2>
+                <cite>Espresso: </cite><p>{{details.espresso|linebreaks}}</p>
+              
+                <cite>Powder Name: </cite><p>{{powder}}</p>
+                <cite>Powder Price: </cite><p>{{powder_price}}</p>
+                <cite>Syrup name: </cite><p>{{syr|linebreaks}}</p>
+                <cite>Syrup price: </cite><p>{{syr_price}}</p>
+                <cite>Roast: </cite><p>{{details.roast}}</p>
+                <cite>Total Price: </cite><p>{{details.price}}</p>
+                <cite>Water: </cite><p>{{details.water}}</p>
+                <cite>Steamed milk: </cite><p>{{details.steamed_milk}}</p>
+                <cite>Foam: </cite><p>{{details.foam}}</p>
+                <cite>Extra instructions: </cite><p>{{details.extra_instructions}}</p>
+
+                </div>
+                                <form action="{% url 'cart:mycart' %}" method="GET"> 
+                    <input type="hidden" name="item" value="{{coffe.id}}">
+                    <input type="number" name="qty" value="1">
+                    <input type="submit" class="btn btn-success" value="Add to cart">
+                </form>
+                </div>
+
+
+
+{% endblock content%}

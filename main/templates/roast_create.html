@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+	{% block head_title %}create
+	{% endblock head_title %}
+	<form method="POST" action="{% url 'main:roast_create' %}" enctype="multipart/form-data" id="post-form">
+		{% csrf_token %}
+		{{form|crispy}}
+		<input type="submit" value="Create post">
+
+	</form>
+
+
+
+
+
+
+{% endblock content%}

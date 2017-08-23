@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block head_title %}Home{% endblock head_title %}   
+{% block links_title %}
+
+
+
+        {% endblock links_title %}
+{% block content %}
+
+
+<div class="col-md-3">
+<h2>Syrups</h2>
+	{% for x  in syrups  %}
+	
+		<div class="jumbotron">
+			<table>
+				<td>
+					<tr>{{x.name}}</tr>
+					<br>
+					<cite>Price: </cite><tr>{{x.price}}</tr>
+				</td>
+			</table>
+						        {%if user.is_superuser or user.is_staff%}
+        <a href="{% url 'main:delete_syrups' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>delete</a>
+            <a href="{% url 'main:update_syrups' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>update</a>
+        {% endif%}
+		</div>
+	{% endfor %}
+</div>
+<div class="col-md-3">
+<h2>Beans</h2>
+		{% for x  in beans  %}
+		
+		<div class="jumbotron">
+			<table>
+				<td>
+					<tr>{{x.name}}</tr>
+					<br>
+					<cite>Price: </cite><tr>{{x.price}}</tr>
+				</td>
+			</table>
+							        {%if user.is_superuser or user.is_staff%}
+        <a href="{% url 'main:delete_bean' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>delete</a>
+         <a href="{% url 'main:update_bean' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>update</a>
+        {% endif%}
+		</div>
+	{% endfor %}
+</div>
+<div class="col-md-3">	
+	<h2>Powders</h2>
+		{% for x  in powders  %}
+		<div class="jumbotron">
+			<table>
+				<td>
+					<tr>{{x.name}}</tr>
+					<br>
+					<cite>Price: </cite><tr>{{x.price}}</tr>
+				</td>
+			</table>
+									        {%if user.is_superuser or user.is_staff%}
+        <a href="{% url 'main:delete_powders' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>delete</a>
+         <a href="{% url 'main:update_powders' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>update</a>
+        {% endif%}
+		</div>
+	{% endfor %}
+</div>
+<div class="col-md-3">
+	<h2>Roasts</h2>
+		{% for x  in roasts  %}
+		<div class="jumbotron">
+			<table>
+				<td>
+					<tr>{{x.name}}</tr>
+					<br>
+					<cite>Price: </cite><tr>{{x.price}}</tr>
+				</td>
+			</table>
+									        {%if user.is_superuser or user.is_staff%}
+        <a href="{% url 'main:delete_roast' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>delete</a>
+         <a href="{% url 'main:update_roast' post_id=x.id %}" class= "btn btn-floating pulse"><i class="glyphicon glyphicon-plus" ></i>update</a>
+        {% endif%}
+		</div>
+	{% endfor %}
+</div>
+	{% for x  in syrups  %}
+	{% endfor %}
+	
+	
+	
+
+
+{% endblock content%}

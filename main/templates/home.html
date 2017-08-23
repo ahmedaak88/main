@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block head_title %}Home{% endblock head_title %}   
+{% block links_title %}
+{% endblock links_title %}
+{% block content %}
+
+
+<div class="row">
+<div class="col-sm-6 col-md-4">
+{% for x  in details  %}
+	{% if x.author == request.user %}
+		
+
+
+		 
+
+<div class="thumbnail">
+
+<div class="caption">
+
+	<h3>{{x.name}}</h3>
+	<cite>the id :</cite><h9>{{x.id}}</h9>
+	<br>
+	<cite>the author: </cite><h9 >{{x.author}}</h9>
+	<br><br>
+	<cite>the price: </cite><h9>{{x.price}}</h9>
+	<br><br>
+	<cite>the beans used: </cite><h9>{{x.bean}}</h9>
+	<br>
+	
+	<p>
+		<a href="{% url 'main:details' post_id=x.id %}" class="btn btn-primary" role="button">Details</a>
+		{%if user.is_superuser or user.is_staff%}
+		<a href="{% url 'main:update' post_id=x.id %}" class="btn btn-info" role="button">update</a>
+		<a href="{% url 'main:delete' post_id=x.id %}" class="btn btn-danger" role="button">delete</a>
+		{% endif%}
+		<form action="{% url 'cart:mycart' %}" method="GET"> 
+		<input type="hidden" name="item" value="{{x.id}}">
+		<input type="number" name="qty" value="1" placeholder="Quntity">
+		<input type="submit" class="btn btn-success" value="Add to cart">
+		</form>
+	</p>
+
+
+</div>
+</div>
+
+	{% endif %}
+{% endfor %}
+		
+	</div>
+</div>
+
+{% endblock content%}

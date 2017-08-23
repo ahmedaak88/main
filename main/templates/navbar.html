@@ -1,0 +1,54 @@
+
+
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{%url 'main:home'%}">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      {%if user.is_superuser or user.is_staff%} 
+     <li ><a href="{%url 'main:admin_view'%}">Admin View</a></li>
+        <li ><a href="{%url 'main:city_create'%}">Add City</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingredents creation <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{%url 'main:bean_create'%}">bean create</a></li>
+            <li><a href="{%url 'main:powders_create'%}">Powder Create</a></li>
+            <li><a href="{%url 'main:roast_create'%}">Roast Create</a></li>
+            <li><a href="{%url 'main:syrups_create'%}">Syrups create</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{%url 'main:ingredents'%}">all ingredients</a></li>
+          </ul>
+        </li>
+          {% endif%}
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{%url 'main:signup'%}">signup</a></li>
+                <li><a href="{%url 'main:ingredents'%}">Ingredents</a></li>
+                <li><a href="{%url 'main:create'%}">Coffe create</a></li>
+        <li><a href="{%url 'main:address_create'%}">Address creation</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+        <li><a href="{%url 'main:login'%}">Login</a></li>
+        <li><a href="{%url 'main:signup'%}">Signup</a></li>
+        <li><a href="{%url 'main:logout'%}">Logout</a></li>
+
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
